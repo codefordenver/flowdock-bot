@@ -12,6 +12,11 @@ available, etc!
 [hubot]: http://hubot.github.com
 [generator-hubot]: https://github.com/github/generator-hubot
 
+### Building 
+
+`npm run build`
+
+
 ### Running flowbot Locally
 
 You can test your hubot by running the following, however some plugins will not
