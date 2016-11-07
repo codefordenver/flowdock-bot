@@ -22,7 +22,9 @@
     "webbybot": "^3.2.4"
   },
   "scripts": {
-    "build": "babel src -d scripts"
+    "build": "babel src -d scripts",
+    "start": "./bin/webby -a flowdock",
+    "dev": "nodemon -w src --exec 'npm run build'"
   },
   "engines": {
     "node": "5.11.1"
@@ -30,6 +32,7 @@
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-preset-es2015": "^6.18.0"
+    "babel-preset-es2015": "^6.18.0",
+    "nodemon": "^1.11.0"
   }
 }

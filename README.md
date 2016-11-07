@@ -16,6 +16,9 @@ available, etc!
 
 `npm run build`
 
+### Deving
+
+`npm run dev`
 
 ### Running flowbot Locally
 
