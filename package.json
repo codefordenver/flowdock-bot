@@ -8,7 +8,7 @@
     "dotenv": "^2.0.0",
     "hubot": "^2.19.0",
     "hubot-diagnostics": "0.0.1",
-    "hubot-flowdock": "^0.7.6",
+    "hubot-flowdock": "git@github.com:codefordenver/hubot-flowdock.git",
     "hubot-google-images": "^0.2.6",
     "hubot-google-translate": "^0.2.0",
     "hubot-help": "^0.2.0",
