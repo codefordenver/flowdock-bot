@@ -5,6 +5,7 @@
   "author": "dviramontes <dviramontes@gmail.com>",
   "description": "//",
   "dependencies": {
+    "dotenv": "^2.0.0",
     "hubot": "^2.19.0",
     "hubot-diagnostics": "0.0.1",
     "hubot-flowdock": "^0.7.6",
