@@ -6,7 +6,7 @@
   "description": "//",
   "dependencies": {
     "dotenv": "^2.0.0",
-    "google-drive": "0.0.7",
+    "googleapis": "^14.2.0",
     "hubot": "^2.19.0",
     "hubot-diagnostics": "0.0.1",
     "hubot-flowdock": "codefordenver/hubot-flowdock",

@@ -1,4 +1,13 @@
-import googleDrive from 'google-drive';
+import google from 'googleapis';
+
+const drive = google.drive('v3');
+
+const folderId = '0B3jBXk-K_MnuU3pNTDhCVVhUUlU';
+
+var fileMetadata = {
+  name: 'foo copy'
+  // parents: [ folderId ]
+};
 
 export default (robot) => {
   robot.hear(/swing/, (res) => {
@@ -8,11 +17,19 @@ export default (robot) => {
     res.send("bar");
   });
   robot.hear(/agenda/, (res) => {
-    googleDrive(token).files(id).copy(null, null, (err, response, body) => {
-      console.log(err);
-      console.log(response);
-      console.log(body);
-      res.send("got it");
-    })
-  })
+    const auth = 'REPLACE WITH API KEY';
+    // Make an authorized request to list Drive files.
+    drive.files.copy({
+      fileId: '1hfLR-ZdrYo0A0aTQ5rFL22ETSAYroEwCZmE8S9lZlTY',
+      auth
+      // resource: fileMetadata
+    }, function (err, resp) {
+      // handle err and response
+      if (err) {
+        console.log(err);
+      }
+      console.log('got here');
+      console.log(resp);
+    });
+  });
 }
