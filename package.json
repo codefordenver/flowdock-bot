@@ -20,7 +20,8 @@
     "hubot-rules": "^0.1.1",
     "hubot-scripts": "^2.17.2",
     "hubot-shipit": "^0.2.0",
-    "hubot-wit-ai": "^0.1.4",
+    "hubot-wit": "^0.2.4",
+    "node-wit": "^4.1.0",
     "webbybot": "^3.2.4"
   },
   "scripts": {

@@ -1,35 +1,50 @@
-import google from 'googleapis';
+'use strict';
 
-const drive = google.drive('v3');
+const witHelper = require('hubot-wit-helper');
 
-const folderId = '0B3jBXk-K_MnuU3pNTDhCVVhUUlU';
+const accessToken = 'BIHHIJGGRDHA2FF6G3NAJHL4IZ62CEG7';
 
-var fileMetadata = {
-  name: 'foo copy'
-  // parents: [ folderId ]
+const firstEntityValue = (entities, entity) => {
+  const val = entities && entities[entity] &&
+    Array.isArray(entities[entity]) &&
+    entities[entity].length > 0 &&
+    entities[entity][0].value
+  ;
+  if (!val) {
+    return null;
+  }
+  return typeof val === 'object' ? val.value : val;
 };
 
-export default (robot) => {
-  robot.hear(/swing/, (res) => {
-    res.send("swung");
-  });
-  robot.hear(/foo/, (res) => {
-    res.send("bar");
-  });
-  robot.hear(/agenda/, (res) => {
-    const auth = 'REPLACE WITH API KEY';
-    // Make an authorized request to list Drive files.
-    drive.files.copy({
-      fileId: '1hfLR-ZdrYo0A0aTQ5rFL22ETSAYroEwCZmE8S9lZlTY',
-      auth
-      // resource: fileMetadata
-    }, function (err, resp) {
-      // handle err and response
-      if (err) {
-        console.log(err);
-      }
-      console.log('got here');
-      console.log(resp);
+const actions = {
+  send(request, response) {
+    const {sessionId, context, entities} = request;
+    const {text, quickreplies} = response;
+    return new Promise(function(resolve, reject) {
+      console.log(JSON.stringify(response.text));
+      return resolve();
     });
-  });
-}
+  },
+  agenda({context, entities}) {
+    return new Promise(function(resolve, reject) {
+      var date = firstEntityValue(entities, "date");
+      return resolve(context);
+    });
+  },
+};
+
+const bot = robot => {
+
+  const witRobot = new witHelper.Robot(accessToken, actions, robot);
+
+  witRobot.respond(/(.*)/gi, (err, context, res) => {
+
+  console.log(`[USER] ${witRobot.getMsg(res)}`);
+
+  if(err) {
+    console.error(err);
+    return;
+  }
+});
+
+module.exports = bot;
