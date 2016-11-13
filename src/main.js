@@ -1,5 +1,6 @@
 'use strict';
 
+const Wit = require('node-wit').Wit;
 const witHelper = require('hubot-wit-helper');
 
 const accessToken = 'BIHHIJGGRDHA2FF6G3NAJHL4IZ62CEG7';
