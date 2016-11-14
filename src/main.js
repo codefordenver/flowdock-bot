@@ -1,51 +1,71 @@
+
 'use strict';
 
-const Wit = require('node-wit').Wit;
-const witHelper = require('hubot-wit-helper');
+(() => {
 
-const accessToken = 'BIHHIJGGRDHA2FF6G3NAJHL4IZ62CEG7';
+    const witHelper = require('hubot-wit-helper');
 
-const firstEntityValue = (entities, entity) => {
-  const val = entities && entities[entity] &&
-    Array.isArray(entities[entity]) &&
-    entities[entity].length > 0 &&
-    entities[entity][0].value
-  ;
-  if (!val) {
-    return null;
-  }
-  return typeof val === 'object' ? val.value : val;
-};
+    const TOKEN = 'BIHHIJGGRDHA2FF6G3NAJHL4IZ62CEG7';
 
-const actions = {
-  send(request, response) {
-    const {sessionId, context, entities} = request;
-    const {text, quickreplies} = response;
-    return new Promise(function(resolve, reject) {
-      console.log(JSON.stringify(response.text));
-      return resolve();
-    });
-  },
-  agenda({context, entities}) {
-    return new Promise(function(resolve, reject) {
-      var date = firstEntityValue(entities, "date");
-      return resolve(context);
-    });
-  },
-};
+    const firstEntityValue = (entities, entity) => {
+      const val = entities && entities[entity] &&
+        Array.isArray(entities[entity]) &&
+        entities[entity].length > 0 &&
+        entities[entity][0].value
+      ;
+      if (!val) {
+        return null;
+      }
+      return typeof val === 'object' ? val.value : val;
+    };
 
-const bot = robot => {
+    const actions = {
+        send(request, response) {
 
-  const witRobot = new witHelper.Robot(accessToken, actions, robot);
+            const { sessionId } = request;
+            const { text } = response;
 
-  witRobot.respond(/(.*)/gi, (err, context, res) => {
+            return new Promise(function(resolve) {
+                sessionId.res.reply(text);
+                return resolve();
+            });
+        },
+        agenda({context, entities}) {
+          return new Promise(function(resolve, reject) {
+            var date = firstEntityValue(entities, "date");
+            return resolve(context);
+          });
+        },
+      };
 
-  console.log(`[USER] ${witRobot.getMsg(res)}`);
+    const bot = robot => {
 
-  if(err) {
-    console.error(err);
-    return;
-  }
-});
+        const witRobot = new witHelper.Robot(
+            TOKEN,
+            actions,
+            robot,
+            new witHelper.log.Logger(witHelper.log.DEBUG)
+        );
 
-module.exports = bot;
+        const reg = /(.*)/;
+
+        witRobot.getMessage = (res) => {
+            return res.match[3];
+        };
+
+        witRobot.respond(reg, (err, context, res) => {
+
+            console.log(`[USER] ${witRobot.getMsg(res)}`);
+
+            if (err) {
+                console.error(err);
+                return;
+            }
+
+        });
+
+    };
+
+    module.exports = bot;
+
+})();
